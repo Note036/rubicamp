@@ -1,8 +1,6 @@
-function sum(...args) {
+function sum() {
     let sum = 0
-    for(let arg of args) {
-        sum += arg;}
-    return console.log(sum)
+    console.log(Object.values(arguments).reduce((total,value) => total + value))
 };
 
 sum(1,2,7);
