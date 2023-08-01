@@ -1,21 +1,20 @@
 function deretKaskus(n) {
     const deret = [];
-    for(let i = 0; i < n; i++) {
-        deret[i] = (i+1) * 3;
-
-        if(deret[i] % 5 == 0 && deret[i] % 6 == 0) {
-            deret[i] = "KASKUS"
-        };
-        if(deret[i] % 5 == 0) {
-            deret[i] = "KAS"
-        };
-        if(deret[i] % 6 == 0) {
-            deret[i] = "KUS"    
-        };
+    let l = n * 3;
+    for(let i = 3; i <= l; i += 3) {
+        if(i % 5 == 0 && i % 6 == 0) {
+            deret.push("KASKUS")
+        } else if(i % 5 == 0) {
+            deret.push("KAS")
+        } else if(i % 6 == 0) {
+            deret.push("KUS")    
+        } else {
+            deret.push(i)
+        }
         
     };
      
-    return deret;
+    return deret
 }
 
  console.log(deretKaskus(10));
