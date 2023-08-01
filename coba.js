@@ -1,51 +1,40 @@
-/*function cekPrimeNumber(n) {
-    for(let i = 2; i < n; i++) {
-        if(n % i == 0)
-            return false
-        };
-            
-    return true;
-};*/
-
-function indexPrime(param1) {
-    const bilPrima = [];
-    let i = 2;
-    while(bilPrima.length < param1) {
-        const cekPrimeNumber = (n) => {
-            for(let i = 2; i < n; i++) {
-                if(n % i == 0)
-                    return false;
-                };
-                    
-            return true;
-        };
-        if(cekPrimeNumber(i)) {
-            bilPrima.push(i);
-        };
-        i = i === 2 ? i + 1 : i + 2;
-    };
-    
-    return bilPrima[param1-1];
-};
-
-console.log(indexPrime(4));
-console.log(indexPrime(500));
-console.log(indexPrime(37786));
-
-
-/*function indexPrime(param1) {
-    const bilPrima = [];
-    let batas = param1*20
-    for(let i = 2; i < batas; i++){
-        for(let j = 2; j < i; j++) {
-            if(i % j == 0)
-                return false
-            };
-                
-        return true;
+const matrix = (n) => {
+    const results = [];for (let i = 0; i < n; i++) {
+      results.push([]);
+    }let counter = 0;
+    let startColumn = 0;
+    let endColumn = n - 1;
+    let startRow = 0;
+    let endRow = n - 1;
+    while (startColumn <= endColumn && startRow <= endRow) {
+      // Top row
+      for (let i = startColumn; i <= endColumn; i++) {
+        results[startRow][i] = counter;
+        counter++;
+        console.log(results)
+      }
+      startRow++;// Right column
+      for (let i = startRow; i <= endRow; i++) {
+        results[i][endColumn] = counter;
+        counter++;
+        console.log(results)
+      }
+      endColumn--;// Bottom row
+      for (let i = endColumn; i >= startColumn; i--) {
+        results[endRow][i] = counter;
+        counter++;
+        console.log(results)
+      }
+      endRow--;// start column
+      for (let i = endRow; i >= startRow; i--) {
+        results[i][startColumn] = counter;
+        counter++;
+        console.log(results)
+      }
+      startColumn++;
     }
-        if(i == true) {
-            bilPrima.push(i)
-        }
-    return bilPrima[param1-1]
-}*/
+    return results;
+  }
+
+  console.log(matrix(5))
+

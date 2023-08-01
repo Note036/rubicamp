@@ -1,5 +1,4 @@
 function sum() {
-    let sum = 0
     console.log(Object.values(arguments).reduce((total,value) => total + value))
 };
 

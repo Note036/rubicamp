@@ -9,19 +9,23 @@
 
 function indexPrime(param1) {
     const bilPrima = [];
-    let batas = param1*20
+    let cekPrimeNumber;
+    let batas = param1*20;
+
+    while(bilPrima.length < param1) {
     for(let i = 2; i < batas; i++){
-        const cekPrimeNumber = (n) => {
-            for(let i = 2; i < n; i++) {
-                if(n % i == 0)
-                    return false
-                };
+        cekPrimeNumber = true;
+
+        for(let j = 2; j < i; j++) {
+            if(i % j == 0) {
+            cekPrimeNumber = false
+            }
+        };
                     
-            return true;
-        }
-        if(cekPrimeNumber(i) == true) {
+        if(cekPrimeNumber == true) {
             bilPrima.push(i)
         }
+    }
     }
     return bilPrima[param1-1]
 }
