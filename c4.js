@@ -1,62 +1,18 @@
-/*function cekPrimeNumber(n) {
-    for(let i = 2; i < n; i++) {
-        if(n % i == 0)
-            return false
-        };
-            
-    return true;
-};*/
-
 function indexPrime(param1) {
-    const bilPrima = [];
+    let counter = 0;
     let cekPrimeNumber;
-    let batas = param1*20;
-
-    while(bilPrima.length < param1) {
-    for(let i = 2; i < batas; i++){
+    
+    for (let i = 2; ; i++) {
         cekPrimeNumber = true;
-
-        for(let j = 2; j < i; j++) {
-            if(i % j == 0) {
-            cekPrimeNumber = false
-            }
-        };
-                    
-        if(cekPrimeNumber == true) {
-            bilPrima.push(i)
+        for(let j = 2; j < Math.sqrt(i); j++) {
+            if(i % j == 0) cekPrimeNumber = false 
+        
         }
+        if(cekPrimeNumber == true) counter++
+        if(counter == param1) return i
     }
-    }
-    return bilPrima[param1-1]
 }
 
 console.log(indexPrime(4));
 console.log(indexPrime(500));
 console.log(indexPrime(37786));
-
-/*
-function indexPrime(param1) {
-    const bilPrima = [];
-    let i = 2;
-    while(bilPrima.length < param1) {
-        const cekPrimeNumber = (n) => {
-            for(let i = 2; i < n; i++) {
-                if(n % i == 0)
-                    return false;
-                };
-                    
-            return true;
-        };
-        if(cekPrimeNumber(i)) {
-            bilPrima.push(i);
-        };
-        i = i === 2 ? i + 1 : i + 2;
-    };
-    
-    return bilPrima[param1-1];
-};
-
-console.log(indexPrime(4));
-console.log(indexPrime(500));
-console.log(indexPrime(37786));
-*/
