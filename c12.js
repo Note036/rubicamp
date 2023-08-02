@@ -31,7 +31,7 @@ rl.on("line", (answer) => {
         obj.push(obj[count])
         count++;
         console.log("\t");
-        counter = "";
+        counter = 0;
         
     } else {
         counter++
