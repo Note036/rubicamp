@@ -1,7 +1,11 @@
+if(!process.argv[2]) {
+    console.log(`Tolong sertakan nama file sebagai inputan soalnya \nMisalnya 'node c12.js data.json'`);
+    process.exit(0);
+}
 const readline = require("readline");
 const fs = require("fs");
 const rl = readline.createInterface({input: process.stdin, output: process.stdout, prompt: "Jawaban: "});
-const data = fs.readFileSync("./data.json", "utf-8");
+const data = fs.readFileSync(`./${process.argv[2]}`, "utf-8");
 const obj = JSON.parse(data);
 let count = 0;
 let counter = 0;
