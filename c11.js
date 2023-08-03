@@ -6,7 +6,7 @@ const obj = JSON.parse(data);
 let count = 0; counter = 0;
 
 obj.push({"definition":"Sebutkan kota yang memiliki julukan kota Intan?","term":"Garut"});
-fs.writeFileSync("./data", JSON.stringify(obj));
+fs.writeFileSync("./data.json", JSON.stringify(obj));
 
 console.log("Selamat datang di Tebak kata, silahkan isi jawaban yang benar ya! \n")
 console.log("Pertanyaan:", obj[count].definition);
