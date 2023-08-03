@@ -10,7 +10,7 @@ console.log(`Selamat datang di permainan Tebak-tebaban. Kamu akan diberi pertany
 Untuk bermain, jawablah dengan jawaban yang sesuai.
 Gunakan 'skip' untuk menangguhkan pertanyaannya, dan diakhir pertanyaan akan ditanyakan lagi \n`);
 
-console.log(obj[0].definition)
+console.log("Pertanyaan:",obj[0].definition)
 rl.prompt()
 
 rl.on("line", (answer) => {
@@ -21,13 +21,13 @@ rl.on("line", (answer) => {
             console.log("Anda Berhasil!");
             rl.close()
         } else {
-        console.log(obj[count].definition);
+        console.log("Pertanyaan:",obj[count].definition);
         counter = 0;}
     } else if(answer.toLowerCase() == "skip") {
         obj.push(obj[count]),
         console.log('\t')
         count++;
-        console.log(obj[count].definition);
+        console.log("Pertanyaan:",obj[count].definition);
         counter = 0;
     } else {
         counter++;
