@@ -1,47 +1,40 @@
+const readline = require("readline");
 const fs = require("fs");
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout, prompt: "Jawban: "
-});
-
+const rl = readline.createInterface({input: process.stdin, output: process.stdout, prompt: "Jawaban: "});
 const data = fs.readFileSync("./data.json", "utf-8");
-
 const obj = JSON.parse(data);
-
 let count = 0;
 let counter = 0;
-console.log("selamat datang di permainan Tebak Kata, silahkan isi jawaban yang benar ya! \n");
 
-console.log("Pertanyaan: " + obj[count].definition);
+console.log(`Selamat datang di permainan Tebak-tebaban. Kamu akan diberi pertanyaan dari file ini 'data.json'.
+Untuk bermain, jawablah dengan jawaban yang sesuai.
+Gunakan 'skip' untuk menangguhkan pertanyaannya, dan diakhir pertanyaan akan ditanyakan lagi \n`);
 
-rl.prompt();
+console.log(obj[0].definition)
+rl.prompt()
 
 rl.on("line", (answer) => {
-
-    if (answer.toString().toLowerCase() == obj[count].term.toLowerCase()) {
-        console.log("Anda Beruntung! \n");
+    if(answer.toString().toLowerCase() == obj[count].term.toLowerCase()) {
+        console.log("\nAnda Beruntung!\n");
         count++;
-
-        if (count == obj.length) {
-            console.log("Hore Anda Menang!");
-            rl.close();
-        };
-    } else if (answer.toLowerCase() == "skip") {
-        obj.push(obj[count])
+        if(count == obj.length) {
+            console.log("Anda Berhasil!");
+            rl.close()
+        } else {
+        console.log(obj[count].definition);
+        counter = 0;}
+    } else if(answer.toLowerCase() == "skip") {
+        obj.push(obj[count]),
+        console.log('\t')
         count++;
-        console.log("\t");
+        console.log(obj[count].definition);
         counter = 0;
-        
     } else {
-        counter++
-        console.log(`Anda Kurang Beruntung! anda telah salah ${counter} kali, silahkan coba lagi\n`)
+        counter++;
+        console.log(`\nAnda kurang beruntung! anda telah salah ${counter} kali, silahkan coba lagi.`);
     }
-    console.log(obj[count].definition);
-    rl.prompt();
-
+    
+    rl.prompt()
 }).on("close", () => {
-    process.exit(0);
+    process.exit(0)
 });
-
-
