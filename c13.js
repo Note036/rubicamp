@@ -4,8 +4,7 @@ const obj = JSON.parse(data);
 let inform = process.argv[3];
 let command = process.argv[2];
 let objIndex = obj[obj.findIndex(x => x.ID == inform)];
-// console.log(daftar)
-// console.log(obj)
+let count = obj.length + 1
 
 if (!command || command.toLowerCase() == "help") {
     console.log(`>>> JS RODO <<<
@@ -42,14 +41,13 @@ else {
         case "add":
             if (process.argv.slice(3).join(" ")) {
                 console.log(`"${process.argv.slice(3).join(" ")}" telah diambahkan.`);
-                obj.push({ "ID": obj.length + 1, "title": process.argv.slice(3).join(" "), "complete": false, "tags": "" });
+                obj.push({ "ID": count, "title": process.argv.slice(3).join(" "), "complete": false, "tags": "" });
                 fs.writeFileSync("./toDo.json", JSON.stringify(obj));
             } else if (!process.argv.slice(3).join(" ") || process.argv.slice(3).join(" ") == " ") return
             break;
         case "delet":
             console.log(`"${objIndex.title}" telah dihapus dari daftar.`);
             obj.splice(objIndex, 1);
-            for (let i = 0; i < obj.length; i++) obj[i].ID = i + 1;
             fs.writeFileSync("./toDo.json", JSON.stringify(obj));
             break;
         case "complete":
