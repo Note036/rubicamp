@@ -89,10 +89,10 @@ else {
             objIndex.tags = process.argv.slice(4);
             fs.writeFileSync("./toDo.json", JSON.stringify(obj));
             break;
-        case "filter:":
+        case command:
             console.log("Daftar Pekerjaan");
             for (let i = 0; i < obj.length; i++) {
-                if (obj[i].tags.includes(inform)) {
+                if (obj[i].tags.includes(command.split(":")[1])) {
                     if (obj[i].complete) {
                         obj[i].complete = "[x]";
                         console.log(`${obj[i].ID}. ${obj[i].complete} ${obj[i].title}`)
