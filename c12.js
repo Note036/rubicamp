@@ -1,44 +1,46 @@
-if(!process.argv[2]) {
-    console.log(`Tolong sertakan nama file sebagai inputan soalnya \nMisalnya 'node c12.js data.json'`);
-    process.exit(0);
-}
-const readline = require("readline");
 const fs = require("fs");
-const rl = readline.createInterface({input: process.stdin, output: process.stdout, prompt: "Jawaban: "});
-const data = fs.readFileSync(`./${process.argv[2]}`, "utf-8");
-const obj = JSON.parse(data);
-let count = 0;
-let counter = 0;
+const readline = require("readline");
+if (!process.argv[2]) {
+    console.log(`Tolong sertakan nama file sebagai inputan soalnya
+Misalnya 'node solution.js data.josn`)
+} else {
+    if (!fs.existsSync(`./${process.argv[2]}`)) console.log("File tidak ditemukan! Silahkan masukkan nama file soal dengan benar!")
+    else {
+        const data = fs.readFileSync(`./${process.argv[2]}`, "utf-8");
+        const obj = JSON.parse(data);
+        const rl = readline.createInterface({ input: process.stdin, output: process.stdout, prompt: "Jawaban: " });
+        let count = 0, counter = 0;
 
-console.log(`Selamat datang di permainan Tebak-tebaban. Kamu akan diberi pertanyaan dari file ini 'data.json'.
+        console.log(`Selamat datang di permainan Tebak-tebaban. Kamu akan diberi pertanyaan dari file ini 'data.json'.
 Untuk bermain, jawablah dengan jawaban yang sesuai.
 Gunakan 'skip' untuk menangguhkan pertanyaannya, dan diakhir pertanyaan akan ditanyakan lagi \n`);
+        console.log(`Pertanyaan: ${obj[count].definition}`);
 
-console.log("Pertanyaan:",obj[0].definition)
-rl.prompt()
+        rl.prompt();
 
-rl.on("line", (answer) => {
-    if(answer.toString().toLowerCase() == obj[count].term.toLowerCase()) {
-        console.log("\nAnda Beruntung!\n");
-        count++;
-        if(count == obj.length) {
-            console.log("Anda Berhasil!");
-            rl.close()
-        } else {
-        console.log("Pertanyaan:",obj[count].definition);
-        counter = 0;}
-    } else if(answer.toLowerCase() == "skip") {
-        obj.push(obj[count]),
-        console.log('\t')
-        count++;
-        console.log("Pertanyaan:",obj[count].definition);
-        counter = 0;
-    } else {
-        counter++;
-        console.log(`\nAnda kurang beruntung! anda telah salah ${counter} kali, silahkan coba lagi.`);
+        rl.on("line", (answer) => {
+            if (answer.toLowerCase() == obj[count].term.toLowerCase()) {
+                count++;
+                counter = 0;
+                console.log("\nAnda Beruntung!\n");
+                if (count == obj.length) {
+                    console.log("Anda Berhasil!");
+                    rl.close();
+                }
+                console.log(`Pertanyaan: ${obj[count].definition}`)
+            } else if (answer.toLowerCase() == "skip") {
+                counter = 0;
+                obj.push(obj[count]);
+                count++;
+                console.log("\t");
+                console.log(`Pertanyaan: ${obj[count].definition}`);
+            }
+            else {
+                counter++;
+                console.log(`\nAnda kurang beruntung! Anda telah salah ${counter} kali, silahkan coba lagi.`);
+            } rl.prompt();
+        }).on("close", () => {
+            process.exit(0)
+        })
     }
-    
-    rl.prompt()
-}).on("close", () => {
-    process.exit(0)
-});
+}
