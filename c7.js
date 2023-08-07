@@ -1,17 +1,10 @@
-function weirdMultiple(sentence) {
-    if(sentence < 10) {
-        return sentence
-    };
-    
-    const numToString = sentence.toString();
-    const pisah = numToString.split("");
-    let kali = 1;
-     
-    for(let i = 0; i < pisah.length; i++) {
-        kali *= pisah[i]
-    };  
-    return weirdMultiple(kali);
-};
+function weirdMultiple(n) {
+    if (n < 10) return n
+    let result = 1;
+    const num = n.toString()
+    for (let x of num) result *= x
+    return weirdMultiple(result)
+}
 
 console.log(weirdMultiple(39));
 console.log(weirdMultiple(999));
