@@ -1,18 +1,15 @@
-function indexPrime(param1) {
-    let counter = 0;
-    let cekPrimeNumber;
-    
+function indexPrim(param) {
+    let count = 0;
     for (let i = 2; ; i++) {
-        cekPrimeNumber = true;
-        for(let j = 2; j < Math.sqrt(i); j++) {
-            if(i % j == 0) cekPrimeNumber = false 
-        
+        let cekParam = true;
+        for (let j = 2; j < Math.sqrt(i); j++) {
+            if (i % j == 0) cekParam = false
         }
-        if(cekPrimeNumber == true) counter++
-        if(counter == param1) return i
+        if (cekParam == true) count++
+        if (count == param) return i
     }
 }
 
-console.log(indexPrime(4));
-console.log(indexPrime(500));
-console.log(indexPrime(37786));
+console.log(indexPrim(4));
+console.log(indexPrim(500));
+console.log(indexPrim(37786));
