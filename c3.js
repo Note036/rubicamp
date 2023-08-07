@@ -1,10 +1,11 @@
-function romawi(n) {
-    const kamusRomawi = {
+function romawi(n){
+  let num = '';
+  const kamus = {
       M: 1000,
       CM: 900,
       D: 500,
       CD: 400,
-      C: 100,
+      C:100,
       XC: 90,
       L: 50,
       XL: 40,
@@ -13,16 +14,13 @@ function romawi(n) {
       V: 5,
       IV: 4,
       I: 1
-    }
-
-    let r = "";
-    
-    for(let x in kamusRomawi) {
-      while(n >= kamusRomawi[x]) {
-        n -= kamusRomawi[x];
-        r += x;
+  };
+  for(let x in kamus) {
+      while(n >= kamus[x]){
+          num += x;
+          n -= kamus[x];
       }
-    }return r
+  } return num
 };
 
 console.log("Script Testing untuk Konversi Romawi\n");
