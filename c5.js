@@ -1,11 +1,8 @@
-function stringManipulation(word) {
-    let vokal = "aiueo";
-    if (/^[aiueo]/.test(word))
-        return console.log(word);
-
-    else if (vokal.includes(word.charAt(0)) == false)
-        return console.log(word.slice(1) + word.charAt(0) + "nyo");
-};
+function stringManipulation(param) {
+    let txt = "";
+    if(/^[aiueo]/.test(param)) return console.log(param)
+    else return console.log(param.slice(1) + param[0] + "nyo")
+}
 
 stringManipulation("ayam");
-stringManipulation("bebek");
+stringManipulation("babi");
