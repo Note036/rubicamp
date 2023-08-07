@@ -32,8 +32,7 @@ Gunakan 'skip' untuk menangguhkan pertanyaannya, dan diakhir pertanyaan akan dit
                 counter = 0;
                 obj.push(obj[count]);
                 count++;
-                console.log("\t");
-                console.log(`Pertanyaan: ${obj[count].definition}`);
+                console.log(`\nPertanyaan: ${obj[count].definition}`);
             }
             else {
                 counter++;
