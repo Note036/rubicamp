@@ -1,30 +1,19 @@
-const readline = require('node:readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: 'tuli kalimatmu disini > ',
-});
+const readline = require("readline")
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout, prompt: "tulis kalimatmu disini > " })
 
-rl.prompt();
+rl.prompt()
 
-rl.on('line', (line) => {
-    const pisahKata = line.split(" ");
-    const vokal = "aiueo";
-    let txt = ""
-    for (let i = 0; i < pisahKata.length; i++) {
-        if (vokal.includes(pisahKata[i].charAt(0)) == true) {
-            txt += pisahKata[i] + " ";
+rl.on("line", (answer) => {
+    if (answer.toLowerCase() == "good bye!") return rl.close()
+    else {
+        const kalimat = [], kata = answer.split(" ")
+        for (let x of kata) {
+            if (/^[aiueo]/.test(x)) kalimat.push(x)
+            else kalimat.push(x.slice(1) + x[0] + "nyo")
+        } console.log("hasil konversi: " + kalimat.join(" "))
+    }
 
-        };
-        if (vokal.includes(pisahKata[i].charAt(0)) == false) {
-            txt += pisahKata[i].slice(1) + pisahKata[i].charAt(0) + "nyo ";
-        };
-
-    };
-    console.log(`hasil Konversi: ${txt}`);
-
-    rl.prompt();
-}).on('close', () => {
-    console.log('Good bye!');
-    process.exit(0);
-});
+    rl.prompt()
+}).on("close", () => {
+    process.exit(0)
+})
