@@ -47,7 +47,7 @@ else {
             break;
         case "delet":
             console.log(`"${objIndex.title}" telah dihapus dari daftar.`);
-            obj.splice(objIndex, 1);
+            obj.splice(obj.findIndex(x => x.ID == inform), 1);
             fs.writeFileSync("./toDo.json", JSON.stringify(obj));
             break;
         case "complete":
@@ -87,18 +87,18 @@ else {
             objIndex.tags = process.argv.slice(4);
             fs.writeFileSync("./toDo.json", JSON.stringify(obj));
             break;
-        case command:
-            console.log("Daftar Pekerjaan");
-            for (let i = 0; i < obj.length; i++) {
-                if (obj[i].tags.includes(command.split(":")[1])) {
-                    if (obj[i].complete) {
-                        obj[i].complete = "[x]";
-                        console.log(`${obj[i].ID}. ${obj[i].complete} ${obj[i].title}`)
-                    } else if (!obj[i].complete) {
-                        obj[i].complete = "[ ]";
-                        console.log(`${obj[i].ID}. ${obj[i].complete} ${obj[i].title}`)
-                    }
-                }
-            }
+        // case command:
+        //     console.log("Daftar Pekerjaan");
+        //     for (let i = 0; i < obj.length; i++) {
+        //         if (obj[i].tags.includes(command.split(":")[1])) {
+        //             if (obj[i].complete) {
+        //                 obj[i].complete = "[x]";
+        //                 console.log(`${obj[i].ID}. ${obj[i].complete} ${obj[i].title}`)
+        //             } else if (!obj[i].complete) {
+        //                 obj[i].complete = "[ ]";
+        //                 console.log(`${obj[i].ID}. ${obj[i].complete} ${obj[i].title}`)
+        //             }
+        //         }
+        //     }
     }
 }
