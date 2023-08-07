@@ -1,30 +1,27 @@
 const fs = require("fs");
-const readline = require("readline");
-const data = fs.readFileSync("./data.json", "utf-8");
-const rl = readline.createInterface({input: process.stdin, output: process.stdout, prompt: "Tebakan: "});
+const readline = require("readline")
+const data = fs.readFileSync("./data.json", "utf-8")
 const obj = JSON.parse(data);
-let count = 0; counter = 0;
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout, prompt: "Tebakan: " })
+let count = 0;
 
-obj.push({"definition":"Sebutkan kota yang memiliki julukan kota Intan?","term":"Garut"});
-fs.writeFileSync("./data.json", JSON.stringify(obj));
+console.log("Selamat datang di permainan Tebak kata, silahkan isi dengan jawaban yang benar ya! \n")
+console.log(`Pertanyaan: ${obj[count].definition}`);
 
-console.log("Selamat datang di Tebak kata, silahkan isi jawaban yang benar ya! \n")
-console.log("Pertanyaan:", obj[count].definition);
 rl.prompt();
 
 rl.on("line", (answer) => {
-    if(answer.toString().toLowerCase() == obj[count].term.toLowerCase()) {
-        console.log("Selamat Anda Benar! \n");
-        count++;
-        if(count == obj.length) {
-            console.log("Hore Anda Menang!")
+    if (answer.toLowerCase() == obj[count].term.toLowerCase()) {
+        count++
+        if (count == obj.length) {
+            console.log("\nHore Anda Menang! \n");
             rl.close()
         }
-        console.log("Pertanyaan:", obj[count].definition);
-    } else {
-        console.log("Wkwkwkwk, Anda kurang beruntung! \n")
-    }
-    rl.prompt();
+        console.log("Selamat Anda Benar! \n")
+        console.log(`Pertanyaan: ${obj[count].definition}`);
+
+    } else console.log("Wkwkwkwk, Anda kurang beruntung!\n")
+    rl.prompt()
 }).on("close", () => {
     process.exit(0)
 });
