@@ -20,8 +20,7 @@ Gunakan 'skip' untuk menangguhkan pertanyaannya, dan diakhir pertanyaan akan dit
 
         rl.on("line", (answer) => {
             if (answer.toLowerCase() == obj[count].term.toLowerCase()) {
-                count++;
-                counter = 0;
+                count++, counter = 0;
                 console.log("\nAnda Beruntung!\n");
                 if (count == obj.length) {
                     console.log("Anda Berhasil!");
