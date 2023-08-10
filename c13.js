@@ -81,13 +81,12 @@ node c13.js filter:<tag_name>`)
             else if (id == "desc") console.log(completed.reverse().join("\n"));
             break;
         case "tag":
-            console.log(`Tag "${process.argv.slice(4)}" telah ditambahkan ke dalam daftar '${obj[obj.findIndex(x => x.ID == id)].title}'`);
+            console.log(`Tag "${process.argv.slice(4)}" telah ditambahkan ke dalam daftar '${obj[objIndex].title}'`);
             obj[objIndex].tag = process.argv.slice(4);
             fs.writeFileSync("./toDo.json", JSON.stringify(obj), "utf-8");
             break;
         case `filter:${command.slice(7)}`:
             console.log("Daftar Pekerjaan");
-            console.log(command.slice(7));
             for (let x of obj) {
                 if (x.tag.includes(command.slice(7))) {
                     if (x.complete) {
