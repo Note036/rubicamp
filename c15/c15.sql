@@ -149,13 +149,13 @@ UPDATE kontrak set nilai="A" WHERE id_kontrak=27;
 UPDATE kontrak set nilai="D" WHERE id_kontrak=28;
 UPDATE kontrak set nilai="C" WHERE id_kontrak=29;
 
-ALTER TABLE mahasiswa ADD umur int;
-UPDATE mahasiswa set umur=20 where nim="019001";
-UPDATE mahasiswa set umur=18 where nim="019002";
-UPDATE mahasiswa set umur=22 where nim="019003";
-UPDATE mahasiswa set umur=22 where nim="019004";
-UPDATE mahasiswa set umur=21 where nim="019005";
-UPDATE mahasiswa set umur=19 where nim="019006";
+ALTER TABLE mahasiswa ADD lahir DATE;
+UPDATE mahasiswa set lahir="2003-05-11" where nim="019001";
+UPDATE mahasiswa set lahir="2005-02-21" where nim="019002";
+UPDATE mahasiswa set lahir="2001-04-04" where nim="019003";
+UPDATE mahasiswa set lahir="2001-06-14" where nim="019004";
+UPDATE mahasiswa set lahir="2002-01-19" where nim="019005";
+UPDATE mahasiswa set lahir="2004-02-20" where nim="019006";
 
 
 .headers on
@@ -164,7 +164,7 @@ UPDATE mahasiswa set umur=19 where nim="019006";
 SELECT *,(SELECT nama FROM jurusan WHERE jurusan.id_jurusan=mahasiswa.id_jurusan) AS namajurusan FROM mahasiswa;
 
 -- TASK 2
-SELECT * FROM mahasiswa where umur<20;
+SELECT *, DATE('now')-DATE(lahir) AS umur FROM mahasiswa where umur<20;
 
 -- TASK 3
 SELECT DISTINCT (SELECT nama FROM mahasiswa WHERE mahasiswa.nim=kontrak.nim) AS nama FROM kontrak WHERE nilai<="B";
@@ -176,10 +176,10 @@ SELECT nim, (SELECT nama FROM mahasiswa WHERE mahasiswa.nim=kontrak.nim) AS nama
 SELECT nim, (SELECT nama FROM mahasiswa WHERE mahasiswa.nim=kontrak.nim) AS nama, id_matkul, (SELECT nama FROM mata_kuliah WHERE mata_kuliah.id_matkul=kontrak.id_matkul) AS matkul FROM kontrak;
 
 -- TASK 6
-SELECT *,(SELECT COUNT(nim) FROM kontrak WHERE kontrak.nip=dosen.nip) AS jumlah_mahasiswa FROM dosen;
+SELECT *,(SELECT COUNT(DISTINCT nim) FROM kontrak WHERE kontrak.nip=dosen.nip) AS jumlah_mahasiswa FROM dosen;
 
 -- Task 7
-SELECT * FROM mahasiswa ORDER BY umur ASC;
+SELECT *, DATE('now')-DATE(lahir) AS umur FROM mahasiswa ORDER BY umur ASC;
 
 --TASK 8
 SELECT * FROM kontrak JOIN mahasiswa ON kontrak.nim=mahasiswa.nim JOIN jurusan ON jurusan.id_jurusan=mahasiswa.id_jurusan JOIN dosen ON dosen.nip=kontrak.nip WHERE nilai>="D";
