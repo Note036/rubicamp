@@ -6,63 +6,44 @@ class Tyre {
 };
 
 class Car extends Tyre {
-    constructor(brand, size, varian, door, seat, warranty) {
+    constructor(brand, size, varian, door, seat, warranty, year, sn) {
         super(brand, size);
         this.varian = varian; this.door = door; this.seat = seat;
-        this.warranty = warranty;
+        this.warranty = warranty; this. year = year; this.sn = sn;
     };
 };
 
-class car1 extends Car {
-    constructor() {
-        super('Dunlop', 15, 'Agya', 5, 5, 1);
-    }
-}
+class car1 extends Car {}
 
-class car2 extends Car {
-    constructor() {
-        super("Bridgestone", 17, "Rush", 5, 5, 3)
-    }
-}
-
-const agya = new car1();
-const rush = new car2()
+class car2 extends Car {}
 
 class CarFactory {
     constructor() {
-        this.cars = [];
-        this.seri = [];
-        this.years = [];
-        this.count = 1;
+        this.cars = []; this.agya; this.rush; this.count = 1;
         this.rand = Math.floor(Math.random() * 6);
         this.rand2 = Math.floor(Math.random() * 6);
     };
     produce(year) {
-        
-        for (let i = 0; i < this.rand; i++) {
-            this.years.push(year);
-            this.seri.push(CarFactory.serialNumber());
-            this.cars.push(agya);
+        for (let i = 0; i < 2; i++) {
+            this.cars.push(this.agya = new car1('Dunlop', 15, 'Agya', 5, 5, 1, year, CarFactory.serialNumber()));
         }
-        for (let i = 0; i < this.rand2; i++) {
-            this.years.push(year);
-            this.seri.push(CarFactory.serialNumber());
-            this.cars.push(rush);
+        for (let i = 0; i < 2; i++) {
+            this.cars.push(this.rush = new car1('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
         } return this.cars
     };
     result() {
         console.log("hasil produksi :");
-        for (let i = 0; i < this.cars.length; i++) {
+        for (let car of this.cars) {
             console.log(
                 `
 no. ${this.count}
-varian      : ${this.cars[i].varian}
-sn          : ${this.seri[i]}
-door        : ${this.cars[i].door}
-seat        : ${this.cars[i].seat} seater
-tyre        : ${this.cars[i].brand} ${this.cars[i].size} inch
-year        : ${this.years[i]}
-warranty    : ${this.cars[i].warranty} year
+varian      : ${car.varian}
+sn          : ${car.sn}
+door        : ${car.door}
+seat        : ${car.seat} seater
+tyre        : ${car.brand} ${car.size} inch
+year        : ${car.year}
+warranty    : ${car.warranty} year
 `
             )
             this.count++
@@ -71,20 +52,20 @@ warranty    : ${this.cars[i].warranty} year
     guaranteeSimulation(simulationYear) {
         console.log("Hasil simulasi garansi semua mobil pada tahun 2025 :");
         this.count = 1;
-        for (let i = 0; i < this.cars.length; i++) {
+        for (let car of this.cars) {
             console.log(
                 `
 no. ${this.count}
-varian      : ${this.cars[i].varian}
-sn          : ${this.seri[i]}
-door        : ${this.cars[i].door}
-seat        : ${this.cars[i].seat} seater
-tyre        : ${this.cars[i].brand} ${this.cars[i].size} inch
-year        : ${this.years[i]}
-warranty    : ${this.cars[i].warranty} year
+varian      : ${car.varian}
+sn          : ${car.sn}
+door        : ${car.door}
+seat        : ${car.seat} seater
+tyre        : ${car.brand} ${car.size} inch
+year        : ${car.year}
+warranty    : ${car.warranty} year
 `
             );
-            if (this.years[i] + this.cars[i].warranty >= simulationYear) console.log("Status on 2025 this guarantee status active")
+            if (car.year + car.warranty >= simulationYear) console.log("Status on 2025 this guarantee status active")
             else console.log("Status on 2025 this guarantee status expired")
             this.count++;
         } 
@@ -100,10 +81,8 @@ warranty    : ${this.cars[i].warranty} year
                 charRandom = "-"
             }
             serialNum += charRandom;
-        }
-        return serialNum
+        } return serialNum
     }
-
 }
 
 const toyota = new CarFactory();
