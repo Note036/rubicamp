@@ -65,8 +65,8 @@ year        : ${car.year}
 warranty    : ${car.warranty} year
 `
             );
-            if (car.year + car.warranty >= simulationYear) console.log("Status on 2025 this guarantee status active")
-            else console.log("Status on 2025 this guarantee status expired")
+            if (car.year + car.warranty >= simulationYear) console.log(`Status on ${simulationYear} this guarantee status active`)
+            else console.log(`Status on ${simulationYear} this guarantee status expired`)
             this.count++;
         } 
     };
