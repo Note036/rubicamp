@@ -19,24 +19,23 @@ class car2 extends Car {}
 
 class CarFactory {
     constructor() {
-        this.cars = []; this.agya; this.rush; this.count = 1;
-        this.rand = Math.floor(Math.random() * 6);
-        this.rand2 = Math.floor(Math.random() * 6);
+        this.cars = [];
     };
     produce(year) {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
             this.cars.push(this.agya = new car1('Dunlop', 15, 'Agya', 5, 5, 1, year, CarFactory.serialNumber()));
         }
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
             this.cars.push(this.rush = new car1('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
         } return this.cars
     };
     result() {
         console.log("hasil produksi :");
+        let count = 1;
         for (let car of this.cars) {
             console.log(
                 `
-no. ${this.count}
+no. ${count}
 varian      : ${car.varian}
 sn          : ${car.sn}
 door        : ${car.door}
@@ -46,16 +45,16 @@ year        : ${car.year}
 warranty    : ${car.warranty} year
 `
             )
-            this.count++
+            count++
         }
     };
     guaranteeSimulation(simulationYear) {
         console.log("Hasil simulasi garansi semua mobil pada tahun 2025 :");
-        this.count = 1;
+        let count = 1;
         for (let car of this.cars) {
             console.log(
                 `
-no. ${this.count}
+no. ${count}
 varian      : ${car.varian}
 sn          : ${car.sn}
 door        : ${car.door}
@@ -67,7 +66,7 @@ warranty    : ${car.warranty} year
             );
             if (car.year + car.warranty >= simulationYear) console.log(`Status on ${simulationYear} this guarantee status active`)
             else console.log(`Status on ${simulationYear} this guarantee status expired`)
-            this.count++;
+            count++;
         } 
     };
     static serialNumber() {
