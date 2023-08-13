@@ -3,9 +3,6 @@ class Tyre {
         this.brand = brand;
         this.size = size;
     };
-    typeTyre() {
-        return `tyre       : ${this.brand} ${this.size} inch`
-    }
 };
 
 class Car extends Tyre {
@@ -14,21 +11,84 @@ class Car extends Tyre {
         this.varian = varian; this.door = door; this.seat = seat;
         this.warranty = warranty;
     };
-    carModel() {
-        return `varian     : ${this.varian}`
-    };
-    seriNumber() {
-        return `sn         : ${Car.serialNumber()}`
+};
+
+class car1 extends Car {
+    constructor() {
+        super('Dunlop', 15, 'Agya', 5, 5, 1);
     }
-    countDoor() {
-        return `door       : ${this.door}`
-    };
-    countSeat() {
-        return `seat       : ${this.seat} seater`
-    };
-    guarantee() {
-        return `warranty   : ${this.warranty} year`
+}
+
+class car2 extends Car {
+    constructor() {
+        super("Bridgestone", 17, "Rush", 5, 5, 3)
     }
+}
+
+const agya = new car1();
+const rush = new car2()
+
+class CarFactory {
+    constructor() {
+        this.cars = [];
+        this.seri = [];
+        this.years = [];
+        this.count = 1;
+        this.rand = Math.floor(Math.random() * 6);
+        this.rand2 = Math.floor(Math.random() * 6);
+    };
+    produce(year) {
+        
+        for (let i = 0; i < this.rand; i++) {
+            this.years.push(year);
+            this.seri.push(CarFactory.serialNumber());
+            this.cars.push(agya);
+        }
+        for (let i = 0; i < this.rand2; i++) {
+            this.years.push(year);
+            this.seri.push(CarFactory.serialNumber());
+            this.cars.push(rush);
+        } return this.cars
+    };
+    result() {
+        console.log("hasil produksi :");
+        for (let i = 0; i < this.cars.length; i++) {
+            console.log(
+                `
+no. ${this.count}
+varian      : ${this.cars[i].varian}
+sn          : ${this.seri[i]}
+door        : ${this.cars[i].door}
+seat        : ${this.cars[i].seat} seater
+tyre        : ${this.cars[i].brand} ${this.cars[i].size} inch
+year        : ${this.years[i]}
+warranty    : ${this.cars[i].warranty} year
+`
+            )
+            this.count++
+        }
+    };
+    guaranteeSimulation(simulationYear) {
+        console.log("Hasil simulasi garansi semua mobil pada tahun 2025 :");
+        this.count = 1;
+        for (let i = 0; i < this.cars.length; i++) {
+            console.log(
+                `
+no. ${this.count}
+varian      : ${this.cars[i].varian}
+sn          : ${this.seri[i]}
+door        : ${this.cars[i].door}
+seat        : ${this.cars[i].seat} seater
+tyre        : ${this.cars[i].brand} ${this.cars[i].size} inch
+year        : ${this.years[i]}
+warranty    : ${this.cars[i].warranty} year
+`
+            );
+            if (this.years[i] + this.cars[i].warranty >= simulationYear) console.log("Status on 2025 this guarantee status active")
+            else console.log("Status on 2025 this guarantee status expired")
+            this.count++;
+        } 
+    };
     static serialNumber() {
         const chars = "1234567890abcdefghijklmnopqrstuvwxyz";
         let serialNum = "", indexRandom, charRandom
@@ -43,59 +103,6 @@ class Car extends Tyre {
         }
         return serialNum
     }
-};
-
-const car1 = new Car('Dunlop', 15, 'Agya', 5, 5, 1);
-const car2 = new Car('Bridgestone', 17, 'Rush', 5, 5, 3);
-
-class CarFactory extends Car {
-    constructor(brand, size, varian, door, seat, warranty) {
-        super(brand, size, varian, door, seat, warranty);
-        this.cars = [];
-        this.count = 1
-        this.rand = Math.floor(Math.random() * 6);
-        this.rand2 = Math.floor(Math.random() * 6);
-    };
-    produce(year) {
-        for (let i = 0; i < this.rand; i++) {
-            this.cars.push(
-                [`no. ${this.count}`,
-                car1.carModel(),
-                car1.seriNumber(),
-                car1.countDoor(),
-                car1.countSeat(),
-                car1.typeTyre(),
-                `year       : ${year}`,
-                car1.guarantee()]
-            ); this.count++
-        }
-        for (let i = 0; i < this.rand2; i++) {
-            this.cars.push(
-                [`no. ${this.count}`,
-                car2.carModel(),
-                car2.seriNumber(),
-                car2.countDoor(),
-                car2.countSeat(),
-                car2.typeTyre(),
-                `year       : ${year}`,
-                car2.guarantee()]
-            ); this.count++
-        } return this.cars
-    };
-    result() {
-        console.log("hasil produksi :\n");
-        for(let x of this.cars) console.log(`\n${x.join("\n")}\n`)
-    };
-    guaranteeSimulation(simulationYear) {
-        console.log("Hasil simulasi garansi semua mobil pada tahun 2025 :\n");
-        for (let x of this.cars) {
-            if((x[6].replace(/\s/g, '').slice(5) * 1) + 
-            (x[7].replace(/\s/g, '')[9] * 1) == simulationYear) x.push("\nStatus on 2025 this guarantee status active\n")
-            else x.push("\nStatus on 2025 this guarantee status expired\n")
-            console.log(x.join('\n'))
-        }
-    };
-
 
 }
 
