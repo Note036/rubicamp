@@ -26,7 +26,7 @@ class CarFactory {
             this.cars.push(new Agya('Dunlop', 15, 'Agya', 5, 5, 1, year, CarFactory.serialNumber()));
         }
         for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
-            this.cars.push(this.rush = new Rush('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
+            this.cars.push(new Rush('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
         } return this.cars
     };
     result() {
