@@ -13,9 +13,9 @@ class Car extends Tyre {
     };
 };
 
-class car1 extends Car {}
+class Agya extends Car {}
 
-class car2 extends Car {}
+class Rush extends Car {}
 
 class CarFactory {
     constructor() {
@@ -23,10 +23,10 @@ class CarFactory {
     };
     produce(year) {
         for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
-            this.cars.push(this.agya = new car1('Dunlop', 15, 'Agya', 5, 5, 1, year, CarFactory.serialNumber()));
+            this.cars.push(new Agya('Dunlop', 15, 'Agya', 5, 5, 1, year, CarFactory.serialNumber()));
         }
         for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
-            this.cars.push(this.rush = new car1('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
+            this.cars.push(this.rush = new Rush('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
         } return this.cars
     };
     result() {
