@@ -86,7 +86,7 @@ export default class KontrakController {
                         if (dosen) {
                             listDosen(dosen);
                             rl.question("Masukkan NIP Dosen : ", async (nip) => {
-                                if (await Kontrak.findKontrak(nim, kode)) {
+                                if (await Kontrak.findForAdd(nim, kode)) {
                                     console.log("Gagal menambahkan kontrak. Kontrak telah terdaftar");
                                     KontrakController.option()
                                 } else {
@@ -111,7 +111,7 @@ export default class KontrakController {
 
     static delete() {
         rl.question("Masukkan ID Kontrak : ", async (id) => {
-            const kontrak = await Kontrak.findIdKontrak(id)
+            const kontrak = await Kontrak.findForDelete(id)
             if (kontrak) {
                 console.log(`Data Kontrak dengan ID ${kontrak.id_kontrak}, telah dihapus`);
                 await Kontrak.delete(kontrak.id_kontrak),
@@ -131,7 +131,7 @@ export default class KontrakController {
             rl.question("Masukkan NIM Mahasiswa : ", async (nim) => {
                 lines()
                 const kontrak = await Kontrak.find(nim)
-                if (kontrak) {                    
+                if (kontrak.toString()) {                    
                     console.log(`Detail mahasiswa dengan NIM ${nim}`)
                     findKontrak(kontrak);
                     lines()
