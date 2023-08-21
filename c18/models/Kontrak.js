@@ -46,9 +46,9 @@ export default class Kontrak {
         })
     };
 
-    static update(nilai, idkontrak) {
+    static update(nilai, idkontrak, nim) {
         return new Promise(function (resolve, reject) {
-            db.run("UPDATE kontrak SET nilai = ? WHERE id_kontrak = ?", [nilai, idkontrak], (err, data) => {
+            db.run("UPDATE kontrak SET nilai = ? WHERE id_kontrak = ? AND nim = ?", [nilai, idkontrak, nim], (err, data) => {
                 if (err) reject(err)
                 else resolve(data)
             })
@@ -72,4 +72,13 @@ export default class Kontrak {
             })
         })
     };
+    
+    static findForUpdate(id, nim) {
+        return new Promise((resolve, reject) => {
+            db.get("SELECT * FROM kontrak WHERE id_kontrak = ? AND nim = ?", [id, nim], (err, data) => {
+                if (err) reject(err)
+                else resolve(data)
+            })
+        })
+    }
 }
