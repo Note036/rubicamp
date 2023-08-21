@@ -55,7 +55,7 @@ export default class Kontrak {
         })
     };
 
-    static findKontrak(nim, idmatkul) {
+    static findForAdd(nim, idmatkul) {
         return new Promise((resolve, reject) => {
             db.get("SELECT * FROM kontrak WHERE nim = ? AND id_matkul = ?", [nim, idmatkul], (err, data) => {
                 if (err) reject(err)
@@ -64,7 +64,7 @@ export default class Kontrak {
         })
     };
 
-    static findIdKontrak(id) {
+    static findForDelete(id) {
         return new Promise((resolve, reject) => {
             db.get("SELECT * FROM kontrak WHERE id_kontrak = ?", [id], (err, data) => {
                 if (err) reject(err)
