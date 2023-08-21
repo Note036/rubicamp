@@ -137,15 +137,15 @@ export default class KontrakController {
                     lines()
                     rl.question("Masukkan ID yang akan diubah nilainya : ", async (id) => {
                         lines()
-                        if (await Kontrak.findIdKontrak(id)) {
+                        if (await Kontrak.findForUpdate(id, nim)) {
                             rl.question("Masukkan nilai yang baru : ", async (nilai) => {
                                 lines()
-                                await Kontrak.update(nilai, id)
+                                await Kontrak.update(nilai, id, nim)
                                 console.log("Nilai telah diupdate")
                                 await KontrakController.listOf();
                             })
                         } else {
-                            console.log("ID kontrak tidak terdaftar. Silahkan masukkan ID dengan benar")
+                            console.log("ID kontrak dan NIM tidak cocok. Silahkan masukkan ID dan NIM dengan benar")
                             KontrakController.option()
                         }
                     })
