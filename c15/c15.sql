@@ -167,13 +167,15 @@ SELECT *,(SELECT nama FROM jurusan WHERE jurusan.id_jurusan=mahasiswa.id_jurusan
 SELECT *, DATE('now')-DATE(lahir) AS umur FROM mahasiswa where umur<20;
 
 -- TASK 3
-SELECT DISTINCT (SELECT nama FROM mahasiswa WHERE mahasiswa.nim=kontrak.nim) AS nama FROM kontrak WHERE nilai<="B";
+SELECT DISTINCT (kontrak.nim), mahasiswa.nama AS nama FROM kontrak LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim WHERE nilai<="B";
 
 -- TASK 4
-SELECT nim, (SELECT nama FROM mahasiswa WHERE mahasiswa.nim=kontrak.nim) AS nama, id_matkul, sum((SELECT sks from mata_kuliah WHERE mata_kuliah.id_matkul=kontrak.id_matkul)) AS sks FROM kontrak GROUP BY nim HAVING sks>10;
+SELECT kontrak.nim AS nim, mahasiswa.nama AS nama, sum(mata_kuliah.sks) AS jumlahSKS FROM kontrak LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim 
+LEFT JOIN mata_kuliah ON kontrak.id_matkul=mata_kuliah.id_matkul GROUP BY kontrak.nim HAVING jumlahSKS > 10;
 
 -- TASK 5
-SELECT nim, (SELECT nama FROM mahasiswa WHERE mahasiswa.nim=kontrak.nim) AS nama, id_matkul, (SELECT nama FROM mata_kuliah WHERE mata_kuliah.id_matkul=kontrak.id_matkul) AS matkul FROM kontrak;
+SELECT kontrak.nim, mahasiswa.nama AS nama, kontrak.id_matkul, mata_kuliah.nama AS matkul FROM kontrak 
+LEFT JOIN mata_kuliah ON kontrak.id_matkul=mata_kuliah.id_matkul LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim WHERE kontrak.id_matkul='009';
 
 -- TASK 6
 SELECT *,(SELECT COUNT(DISTINCT nim) FROM kontrak WHERE kontrak.nip=dosen.nip) AS jumlah_mahasiswa FROM dosen;
@@ -182,5 +184,7 @@ SELECT *,(SELECT COUNT(DISTINCT nim) FROM kontrak WHERE kontrak.nip=dosen.nip) A
 SELECT *, DATE('now')-DATE(lahir) AS umur FROM mahasiswa ORDER BY umur ASC;
 
 --TASK 8
-SELECT * FROM kontrak JOIN mahasiswa ON kontrak.nim=mahasiswa.nim JOIN jurusan ON jurusan.id_jurusan=mahasiswa.id_jurusan JOIN dosen ON dosen.nip=kontrak.nip WHERE nilai>="D";
+SELECT id_kontrak, kontrak.nim AS nim, mahasiswa.nama AS nama, kontrak.id_matkul AS id_matkul, mata_kuliah.nama AS matkul, kontrak.nip AS nip, dosen.nama AS dosen
+FROM kontrak LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim LEFT JOIN jurusan ON jurusan.id_jurusan=mahasiswa.id_jurusan LEFT JOIN dosen ON dosen.nip=kontrak.nip 
+LEFT JOIN mata_kuliah ON kontrak.id_matkul=mata_kuliah.id_matkul WHERE nilai>="D";
 
