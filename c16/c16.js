@@ -5,70 +5,12 @@ class Tyre {
     };
 };
 
-class Car extends Tyre {
-    constructor(brand, size, varian, door, seat, warranty, year, sn) {
-        super(brand, size);
-        this.varian = varian; this.door = door; this.seat = seat;
-        this.warranty = warranty; this. year = year; this.sn = sn;
+class Car {
+    constructor(year, sn) {
+        this.varian; this.door; this.seat;
+        this.warranty; this.year = year; this.sn = sn;
     };
-};
 
-class Agya extends Car {}
-
-class Rush extends Car {}
-
-class CarFactory {
-    constructor() {
-        this.cars = [];
-    };
-    produce(year) {
-        for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
-            this.cars.push(new Agya('Dunlop', 15, 'Agya', 5, 5, 1, year, CarFactory.serialNumber()));
-        }
-        for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
-            this.cars.push(new Rush('Bridgestone', 17, 'Rush', 5, 5, 3, year, CarFactory.serialNumber()));
-        } return this.cars
-    };
-    result() {
-        console.log("hasil produksi :");
-        let count = 1;
-        for (let car of this.cars) {
-            console.log(
-                `
-no. ${count}
-varian      : ${car.varian}
-sn          : ${car.sn}
-door        : ${car.door}
-seat        : ${car.seat} seater
-tyre        : ${car.brand} ${car.size} inch
-year        : ${car.year}
-warranty    : ${car.warranty} year
-`
-            )
-            count++
-        }
-    };
-    guaranteeSimulation(simulationYear) {
-        console.log("Hasil simulasi garansi semua mobil pada tahun 2025 :");
-        let count = 1;
-        for (let car of this.cars) {
-            console.log(
-                `
-no. ${count}
-varian      : ${car.varian}
-sn          : ${car.sn}
-door        : ${car.door}
-seat        : ${car.seat} seater
-tyre        : ${car.brand} ${car.size} inch
-year        : ${car.year}
-warranty    : ${car.warranty} year
-`
-            );
-            if (car.year + car.warranty >= simulationYear) console.log(`Status on ${simulationYear} this guarantee status active`)
-            else console.log(`Status on ${simulationYear} this guarantee status expired`)
-            count++;
-        } 
-    };
     static serialNumber() {
         const chars = "1234567890abcdefghijklmnopqrstuvwxyz";
         let serialNum = "", indexRandom, charRandom
@@ -82,6 +24,71 @@ warranty    : ${car.warranty} year
             serialNum += charRandom;
         } return serialNum
     }
+};
+
+class Agya extends Car {
+    constructor(year, sn) {
+        super(year, sn)
+        this.tyre = new Tyre('Dunlop', 15); this.varian = 'Agya';
+        this.door = 5; this.seat = 5; this.warranty = 1
+    }
+}
+
+class Rush extends Car {
+    constructor(year, sn) {
+        super(year, sn)
+        this.tyre = new Tyre('Bridgestone', 17); this.varian = 'Rush';
+        this.door = 5; this.seat = 7; this.warranty = 3
+    }
+}
+
+class CarFactory {
+    constructor() {
+        this.cars = [];
+    };
+    produce(year) {
+        for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
+            this.cars.push(new Agya(year, Car.serialNumber()));
+        }
+        for (let i = 0; i < Math.floor(Math.random() * 6); i++) {
+            this.cars.push(new Rush(year, Car.serialNumber()));
+        } return this.cars
+    };
+    result() {
+        console.log("hasil produksi :");
+        this.cars.forEach((car, index) => {
+            console.log(
+                `
+no. ${index + 1}
+varian      : ${car.varian}
+sn          : ${car.sn}
+door        : ${car.door}
+seat        : ${car.seat} seater
+tyre        : ${car.brand} ${car.size} inch
+year        : ${car.year}
+warranty    : ${car.warranty} year
+`
+            )
+        })
+    };
+    guaranteeSimulation(simulationYear) {
+        console.log("Hasil simulasi garansi semua mobil pada tahun 2025 :");
+        this.cars.forEach((car, index) => {
+            console.log(
+                `
+no. ${index + 1}
+varian      : ${car.varian}
+sn          : ${car.sn}
+door        : ${car.door}
+seat        : ${car.seat} seater
+tyre        : ${car.tyre.brand} ${car.tyre.size} inch
+year        : ${car.year}
+warranty    : ${car.warranty} year
+`
+            )
+            console.log(`Status on ${simulationYear} this guarantee status ${(car.year + car.warranty >= simulationYear)? 'active' : 'expired'}`)
+        })
+    };
 }
 
 const toyota = new CarFactory();
