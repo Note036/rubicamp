@@ -155,36 +155,32 @@ UPDATE mahasiswa set lahir="2005-02-21" where nim="019002";
 UPDATE mahasiswa set lahir="2001-04-04" where nim="019003";
 UPDATE mahasiswa set lahir="2001-06-14" where nim="019004";
 UPDATE mahasiswa set lahir="2002-01-19" where nim="019005";
-UPDATE mahasiswa set lahir="2004-02-20" where nim="019006";
+UPDATE mahasiswa set lahir="2004-11-20" where nim="019006";
 
 
 .headers on
 .mode column
 -- TASK 1
-SELECT *,(SELECT nama FROM jurusan WHERE jurusan.id_jurusan=mahasiswa.id_jurusan) AS namajurusan FROM mahasiswa;
+SELECT * FROM mahasiswa LEFT JOIN jurusan USING (id_jurusan);
 
 -- TASK 2
-SELECT *, DATE('now')-DATE(lahir) AS umur FROM mahasiswa where umur<20;
+SELECT *, cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', lahir) AS INTEGER) AS umur FROM mahasiswa;
 
 -- TASK 3
-SELECT DISTINCT (kontrak.nim), mahasiswa.nama AS nama FROM kontrak LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim WHERE nilai<="B";
+SELECT DISTINCT (kontrak.nim), mahasiswa.nama AS nama FROM kontrak LEFT JOIN mahasiswa USING (nim) WHERE nilai<="B";
 
 -- TASK 4
-SELECT kontrak.nim AS nim, mahasiswa.nama AS nama, sum(mata_kuliah.sks) AS jumlahSKS FROM kontrak LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim 
-LEFT JOIN mata_kuliah ON kontrak.id_matkul=mata_kuliah.id_matkul GROUP BY kontrak.nim HAVING jumlahSKS > 10;
+SELECT nim, mahasiswa.nama AS nama, sum(sks) AS jumlahsks FROM mahasiswa LEFT JOIN kontrak USING (nim) LEFT JOIN mata_kuliah USING (id_matkul) GROUP BY (nim) HAVING jumlahsks > 10;
 
 -- TASK 5
-SELECT kontrak.nim, mahasiswa.nama AS nama, kontrak.id_matkul, mata_kuliah.nama AS matkul FROM kontrak 
-LEFT JOIN mata_kuliah ON kontrak.id_matkul=mata_kuliah.id_matkul LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim WHERE kontrak.id_matkul='009';
+SELECT nim, mahasiswa.nama AS nama, mata_kuliah.nama AS matkul FROM mahasiswa LEFT JOIN kontrak USING (nim) LEFT JOIN mata_kuliah USING (id_matkul) WHERE id_matkul = '003';
 
 -- TASK 6
-SELECT *,(SELECT COUNT(DISTINCT nim) FROM kontrak WHERE kontrak.nip=dosen.nip) AS jumlah_mahasiswa FROM dosen;
+SELECT nip, nama, COUNT(DISTINCT nim) AS jumlah_mahasiswa FROM dosen LEFT JOIN kontrak USING (nip) GROUP BY nip;
 
 -- Task 7
-SELECT *, DATE('now')-DATE(lahir) AS umur FROM mahasiswa ORDER BY umur ASC;
+SELECT *, cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', lahir) AS INTEGER) AS umur FROM mahasiswa ORDER BY umur ASC;
 
 --TASK 8
-SELECT id_kontrak, kontrak.nim AS nim, mahasiswa.nama AS nama, kontrak.id_matkul AS id_matkul, mata_kuliah.nama AS matkul, kontrak.nip AS nip, dosen.nama AS dosen
-FROM kontrak LEFT JOIN mahasiswa ON kontrak.nim=mahasiswa.nim LEFT JOIN jurusan ON jurusan.id_jurusan=mahasiswa.id_jurusan LEFT JOIN dosen ON dosen.nip=kontrak.nip 
-LEFT JOIN mata_kuliah ON kontrak.id_matkul=mata_kuliah.id_matkul WHERE nilai>="D";
+SELECT * FROM kontrak LEFT JOIN mahasiswa USING(nim) LEFT JOIN mata_kuliah USING (id_matkul) LEFT JOIN dosen USING (nip) WHERE nilai >= 'D';
 
